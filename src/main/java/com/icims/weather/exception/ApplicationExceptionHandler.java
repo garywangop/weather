@@ -21,4 +21,12 @@ public class ApplicationExceptionHandler {
                 .forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
         return errorMap;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(OpenMeteoClientException.class)
+    public Map<String, String> handleOpenMeteoClient(OpenMeteoClientException openMeteoClientException) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", openMeteoClientException.getMessage());
+        return errorMap;
+    }
 }

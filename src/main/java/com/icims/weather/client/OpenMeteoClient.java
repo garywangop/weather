@@ -1,10 +1,15 @@
 package com.icims.weather.client;
 
+import com.icims.weather.exception.OpenMeteoClientException;
+import com.icims.weather.model.OpenMeteoError;
 import com.icims.weather.model.WeatherRequest;
 import com.icims.weather.model.WeatherResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 @Component
 public class OpenMeteoClient {
@@ -14,19 +19,25 @@ public class OpenMeteoClient {
         String url = buildUrl(weatherRequest);
         WebClient.Builder builder = WebClient.builder();
 
-        try {
-            WeatherResponse weatherResponse = builder.build()
-                    .get()
-                    .uri(url)
-                    .retrieve()
-                    .bodyToFlux(WeatherResponse.class)
-                    .blockLast();
+        WeatherResponse weatherResponse = builder
+                .codecs(configurer -> configurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder()))
+                .build()
+                .get()
+                .uri(url)
+                .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, clientResponse -> {
+                    // handle 4xx client errors
+                    return clientResponse.bodyToMono(OpenMeteoError.class)
+                            .flatMap(errorBody -> Mono.error(new OpenMeteoClientException("Client error: " + errorBody.getErrorMessage())));
+                })
+                .onStatus(HttpStatus::is5xxServerError, clientResponse -> {
+                    // handle 5xx server errors
+                    return Mono.error(new OpenMeteoClientException("Server error: " + clientResponse.statusCode()));
+                })
+                .bodyToMono(WeatherResponse.class)
+                .block();
 
-            return weatherResponse;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return weatherResponse;
     }
 
     private String buildUrl(WeatherRequest weatherRequest) {
