@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -19,12 +16,26 @@ public class Weather {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private int a;
-//    @Transient
-//    private String[] weatherRequest;
-//
-//    @Transient
-//    private WeatherResponse weatherResponse;
+    private String latitude;
+
+    private String longitude;
+
+    private String startDate;
+
+    private String endDate;
+
+    private String time;
+
+    private String timezone;
+
+    private String abbreviation;
+
+    @Column(name = "temperature_unit")
+    private String temperatureUnit;
+
+    @Column(name = "time_format")
+    private String timeFormat;
+
 }

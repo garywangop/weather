@@ -1,7 +1,7 @@
 package com.icims.weather.controller;
 
 import com.icims.weather.model.WeatherRequest;
-import com.icims.weather.model.OpenMeteoResponse;
+import com.icims.weather.model.WeatherResponse;
 import com.icims.weather.service.QueryHistoricalWeather;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +21,7 @@ public class HistoricalWeather {
     }
 
     @GetMapping("historical")
-    public ResponseEntity<OpenMeteoResponse> getWeatherData(@RequestBody @Valid WeatherRequest weatherRequest) {
-
-        OpenMeteoResponse openMeteoResponse = queryHistoricalWeather.getHistoricalWeather(weatherRequest);
-
-        return ResponseEntity.ok(openMeteoResponse);
+    public ResponseEntity<WeatherResponse> getWeatherData(@RequestBody @Valid WeatherRequest weatherRequest) {
+        return ResponseEntity.ok(queryHistoricalWeather.getHistoricalWeather(weatherRequest));
     }
 }

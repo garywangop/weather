@@ -1,19 +1,20 @@
 package com.icims.weather.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class HourlyTemperature {
+public class WeatherResponse {
 
-    private String[] time;
+    private Weather weather;
 
-    @JsonProperty("temperature_2m")
-    private String[] temperature;
+    private List<Temperature> temperatures;
+
 }

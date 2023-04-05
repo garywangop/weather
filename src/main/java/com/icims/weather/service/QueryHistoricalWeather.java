@@ -1,8 +1,8 @@
 package com.icims.weather.service;
 
 import com.icims.weather.model.WeatherRequest;
-import com.icims.weather.model.OpenMeteoResponse;
+import com.icims.weather.model.WeatherResponse;
 
 public interface QueryHistoricalWeather {
-    OpenMeteoResponse getHistoricalWeather(WeatherRequest weatherRequest);
+    WeatherResponse getHistoricalWeather(WeatherRequest weatherRequest);
 }

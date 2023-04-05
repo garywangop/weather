@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OpenMeteoResponse {
+
     private String latitude;
 
     private String longitude;
@@ -28,4 +29,5 @@ public class OpenMeteoResponse {
 
     @JsonProperty("hourly_units")
     private HourlyUnits hourlyUnits;
+
 }

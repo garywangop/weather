@@ -11,6 +11,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @Builder
 public class WeatherRequest {
+
     @NotNull(message = "Value of type 'Float' required for key 'latitude'.")
     @Pattern(regexp = "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$", message = "Latitude must be a valid float value")
     @DecimalMin("-90.0")
@@ -30,4 +31,5 @@ public class WeatherRequest {
     @NotNull
     @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Invalid date format. Make sure to use 'YYYY-MM-DD'")
     private String endDate;
+
 }
