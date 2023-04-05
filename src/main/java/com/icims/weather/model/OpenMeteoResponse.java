@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeatherResponse {
+public class OpenMeteoResponse {
     private String latitude;
 
     private String longitude;

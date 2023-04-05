@@ -3,7 +3,7 @@ package com.icims.weather.client;
 import com.icims.weather.exception.OpenMeteoClientException;
 import com.icims.weather.model.OpenMeteoError;
 import com.icims.weather.model.WeatherRequest;
-import com.icims.weather.model.WeatherResponse;
+import com.icims.weather.model.OpenMeteoResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,11 @@ import reactor.core.publisher.Mono;
 public class OpenMeteoClient {
     private static final String HISTORICAL_WEATHER_URL = "https://archive-api.open-meteo.com/v1/archive?hourly=temperature_2m";
 
-    public WeatherResponse getHistoricalWeather(WeatherRequest weatherRequest) {
+    public OpenMeteoResponse getHistoricalWeather(WeatherRequest weatherRequest) {
         String url = buildUrl(weatherRequest);
         WebClient.Builder builder = WebClient.builder();
 
-        WeatherResponse weatherResponse = builder
+        OpenMeteoResponse openMeteoResponse = builder
                 .codecs(configurer -> configurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder()))
                 .build()
                 .get()
@@ -34,10 +34,10 @@ public class OpenMeteoClient {
                     // handle 5xx server errors
                     return Mono.error(new OpenMeteoClientException("Server error: " + clientResponse.statusCode()));
                 })
-                .bodyToMono(WeatherResponse.class)
+                .bodyToMono(OpenMeteoResponse.class)
                 .block();
 
-        return weatherResponse;
+        return openMeteoResponse;
     }
 
     private String buildUrl(WeatherRequest weatherRequest) {
