@@ -1,5 +1,7 @@
 package com.icims.weather.model;
 
+import com.icims.weather.model.Entity.Temperature;
+import com.icims.weather.model.Entity.Weather;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

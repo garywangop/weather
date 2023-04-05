@@ -4,6 +4,8 @@ import com.icims.weather.client.OpenMeteoClient;
 import com.icims.weather.dao.TemperatureDao;
 import com.icims.weather.dao.WeatherDao;
 import com.icims.weather.model.*;
+import com.icims.weather.model.Entity.Temperature;
+import com.icims.weather.model.Entity.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

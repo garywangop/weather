@@ -1,6 +1,6 @@
 package com.icims.weather.dao;
 
-import com.icims.weather.model.Temperature;
+import com.icims.weather.model.Entity.Temperature;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

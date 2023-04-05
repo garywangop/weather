@@ -1,4 +1,4 @@
-package com.icims.weather.model;
+package com.icims.weather.model.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
