@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface WeatherDao extends JpaRepository<Weather, Long> {
-    Optional<Weather> findByLatitudeAndLongitude(String latitude, String longitude);
+    Optional<Weather> findByLatitudeAndLongitudeAndStartDateAndEndDate(String latitude, String longitude, String startDate, String endDate);
 }

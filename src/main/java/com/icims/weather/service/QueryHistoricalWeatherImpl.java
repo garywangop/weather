@@ -27,7 +27,7 @@ public class QueryHistoricalWeatherImpl implements QueryHistoricalWeather{
 
     @Override
     public WeatherResponse getHistoricalWeather(WeatherRequest weatherRequest) {
-        Optional<Weather> weather = weatherDao.findByLatitudeAndLongitude(weatherRequest.getLatitude(), weatherRequest.getLongitude());
+        Optional<Weather> weather = weatherDao.findByLatitudeAndLongitudeAndStartDateAndEndDate(weatherRequest.getLatitude(), weatherRequest.getLongitude(), weatherRequest.getStartDate(), weatherRequest.getEndDate());
 
         if (weather.isPresent()) {
             return buildWeatherResponse(weather.get());
